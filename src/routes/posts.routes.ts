@@ -1,6 +1,7 @@
 import { Category, Post } from ".prisma/client";
 import { Router } from "express";
 import prisma from "../database";
+import { ensureAuthenticated } from "../middlewares/auth";
 
 const routes = Router();
 
@@ -44,9 +45,9 @@ routes.post("/", async (req, res) => {
   }
 });
 
-routes.get("/user", async (req, res) => {
+routes.get("/user", ensureAuthenticated, async (req, res) => {
   const postsByUser: Post[] = await prisma.user
-    .findUnique({ where: { email: req.body.email } })
+    .findUnique({ where: { email: "lbelo147@gmail.com" } })
     .posts();
 
   return res.json(postsByUser);

@@ -1,0 +1,253 @@
+{
+    "openapi":"3.0.0",
+    "info":{
+        "title":"API utilizando o ORM Prisma",
+        "description":"Essa API tem por objetivo, a manipulação",
+        "termsOfService":"http://localhost:3333/terms",
+        "contact":{
+            "email":"luciano.alcantara@ufv.br"
+        },
+        "version":"1.0.0"
+    },
+    "servers":[
+        {
+            "url":"http://localhost:3333/",
+            "description":"API de desenvolvimento"
+        }
+    ],
+    "paths":{
+        "/users":{
+            "post":{
+                "summary":"Cadastro de usuário",
+                "description":"Essa rota será responsável por cadastrar um novo produto",
+                "tags":["Users"],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Users"
+                            },
+                            "examples":{
+                                "user":{
+                                    "value":{
+                                        "email": "luciano.alcantara@ufv.br",
+                                        "name": "Luciano",
+                                        "country": "Brazil",
+                                        "age": 21
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "500":{
+                        "description":"Error"
+                    },
+                    "200":{
+                        "description":"OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Users"
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get":{
+                "summary":"Recuperar Usuários",
+                "description":"Essa rota será responsável por recuperar usuários",
+                "tags":["Users"],
+                "responses":{
+                    "200":{
+                        "description":"OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "items":[
+                                        {"$ref":"#/components/schemas/Users"}
+                                    ]
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "summary":"Cadastro de usuário",
+                "description":"Essa rota será responsável por cadastrar um novo produto",
+                "tags":["Users"]
+            }
+        },
+        "/users/{id}":{
+            "put":{
+                "summary":"Cadastro de usuário",
+                "description":"Essa rota será responsável por cadastrar um novo produto",
+                "tags":["Users"],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"Id do usuário",
+                        "required":true
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Users"
+                            },
+                            "examples":{
+                                "user":{
+                                    "value":{
+                                        "email": "luciano.alcantara@ufv.br",
+                                        "name": "Luciano",
+                                        "country": "Brazil",
+                                        "age": 21
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "500":{
+                        "description":"Error"
+                    },
+                    "200":{
+                        "description":"OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Users"
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/posts/user":{
+            "get":{
+                "summary":"Recuperar posts de usuário",
+                "description":"Essa rota será responsável por recuperar os posts de um usuário",
+                "tags":["Posts"],
+                "security":[{ "bearerAuth": [] }],
+                "responses":{
+                    "401":{
+                        "description":"Unauthorized"
+                    },
+                    "500":{
+                        "description":"Error"
+                    },
+                    "200":{
+                        "description":"OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Posts"
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components":{
+        "schemas":{
+            "Users":{
+                "type":"object",
+                "properties":{
+                    "id":{
+                        "type":"number"
+                    },
+                    "email": {
+                        "type":"string"
+                    },
+                    "name": {
+                        "type":"string"
+                    },
+                    "country": {
+                        "type":"string"
+                    },
+                    "age": {
+                        "type":"number"
+                    }
+                }
+            },
+            "Posts":{
+                "type":"object",
+                "properties":{
+                    "id":{
+                        "type":"number"
+                    },
+                    "title": {
+                        "type":"string"
+                    },
+                    "createdAt": {
+                        "type":"string"
+                    },
+                    "published": {
+                        "type":"boolean"
+                    },
+                    "authorId ": {
+                        "type":"string"
+                    },
+                    "categories": {
+                        "type":"object",
+                        "$ref":"#/components/schemas/Categories"
+                    }
+                }
+            },
+            "Profiles":{
+                "type":"object",
+                "properties":{
+                    "id":{
+                        "type":"number"
+                    },
+                    "bio": {
+                        "type":"string"
+                    },
+                    "userId": {
+                        "type":"number"
+                    }
+                }
+            },
+            "Categories":{
+                "type":"object",
+                "properties":{
+                    "id":{
+                        "type":"number"
+                    },
+                    "name": {
+                        "type":"string"
+                    },
+                    "posts": {
+                        "type":"object",
+                        "$ref":"#/components/schemas/Posts"
+                    }
+                }
+            }
+        },
+        "securitySchemes":{
+            "bearerAuth":{
+                "type":"http",
+                "scheme":"bearer",
+                "bearerFormat":"JWT"
+            }
+        }
+    }
+    
+}

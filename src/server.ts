@@ -1,11 +1,14 @@
 import "dotenv/config";
 
 import express, { Request, Response, NextFunction } from "express";
+import swaggerUi from "swagger-ui-express";
+
 import "express-async-errors";
 import cors from "cors";
 
 import routes from "./routes";
 import AppError from "./errors/AppError";
+import swaggerDocs from "./config/swagger.json";
 
 const app = express();
 
@@ -14,6 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(routes);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use((err: Error, req: Request, res: Response, _: NextFunction) => {
   if (err instanceof AppError) {

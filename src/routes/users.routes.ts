@@ -51,7 +51,6 @@ routes.put("/:id", async (req, res) => {
       id: Number(req.params.id),
     },
     data: {
-      email: email,
       name: name,
       country: country,
       age: age,
