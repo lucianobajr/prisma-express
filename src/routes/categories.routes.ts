@@ -1,4 +1,4 @@
-import { Category, Post } from ".prisma/client";
+import { Category } from ".prisma/client";
 import { Router } from "express";
 import prisma from "../database";
 

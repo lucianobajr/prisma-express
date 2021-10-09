@@ -136,13 +136,69 @@
                 }
             }
         },
-        "/posts/user":{
+        "/posts":{
+            "get":{
+                "summary":"Cadastro de usuário",
+                "description":"Essa rota será responsável por cadastrar um novo produto",
+                "tags":["Posts"]
+            },
+            "post":{
+                "summary":"Cadastro de usuário",
+                "description":"Essa rota será responsável por cadastrar um novo produto",
+                "tags":["Posts"]
+            }
+        },
+        "/posts/{id}":{
+            "put":{
+                "summary":"Cadastro de usuário",
+                "description":"Essa rota será responsável por cadastrar um novo produto",
+                "tags":["Posts"]
+            },
+            "delete":{
+                "summary":"Cadastro de usuário",
+                "description":"Essa rota será responsável por cadastrar um novo produto",
+                "tags":["Posts"]
+            }
+        },
+        "/posts/{id}/categories":{
+            "get":{
+                "summary":"Cadastro de usuário",
+                "description":"Essa rota será responsável por cadastrar um novo produto",
+                "tags":["Posts"]
+            }
+        },
+        "/posts/published":{
+            "get":{
+                "summary":"Cadastro de usuário",
+                "description":"Essa rota será responsável por cadastrar um novo produto",
+                "tags":["Posts"]
+            }
+        },
+        "/posts/publish/{id}":{
+            "put":{
+                "summary":"Cadastro de usuário",
+                "description":"Essa rota será responsável por cadastrar um novo produto",
+                "tags":["Posts"]
+            }
+        },
+        "/posts/user/{id}":{
             "get":{
                 "summary":"Recuperar posts de usuário",
                 "description":"Essa rota será responsável por recuperar os posts de um usuário",
                 "tags":["Posts"],
                 "security":[{ "bearerAuth": [] }],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"Id do usuário",
+                        "required":true
+                    }
+                ],
                 "responses":{
+                    "400":{
+                        "description":"user not exists!"
+                    },
                     "401":{
                         "description":"Unauthorized"
                     },

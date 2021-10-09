@@ -6,6 +6,9 @@ import profiles from "./profiles.routes";
 
 const routes = Router();
 
+routes.get("/", (req, res) => {
+  return res.json({ ok: true });
+});
 routes.use("/users", users);
 routes.use("/posts", posts);
 routes.use("/categories", categories);
