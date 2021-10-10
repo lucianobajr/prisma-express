@@ -17,14 +17,30 @@ routes.get("/", async (req, res) => {
 routes.post("/", async (req, res) => {
   const { bio, userId } = req.body;
 
-  const profile: Profile = await prisma.profile.create({
-    data: {
-      bio,
-      userId,
+  const userExists = await prisma.user.findUnique({
+    where: {
+      id: userId,
     },
   });
 
-  return res.json(profile);
+  if (!userExists) {
+    return res.status(400).json({
+      error: "user not exists!",
+    });
+  }
+
+  try {
+    const profile: Profile = await prisma.profile.create({
+      data: {
+        bio,
+        userId,
+      },
+    });
+  
+    return res.json(profile);
+  } catch (error) {
+    return res.json(error)
+  }
 });
 
 export default routes;

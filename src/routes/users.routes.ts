@@ -28,23 +28,36 @@ routes.post("/", async (req, res) => {
     return res.json(error);
   }
 });
-routes.delete("/", async (req, res) => {
-  const { email } = req.body;
+routes.delete("/:id", async (req, res) => {
+
+  const userId = Number(req.params.id);
+
+  const userExists = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (!userExists) {
+    return res.status(400).json({
+      error: "user not exists!",
+    });
+  }
 
   try {
-    const deletedUser: User = await prisma.user.delete({
+    await prisma.user.delete({
       where: {
-        email: email,
+        id: userId,
       },
     });
 
-    return res.json(deletedUser);
+    return res.status(200).send();
   } catch (error) {
     return res.json(error);
   }
 });
 routes.put("/:id", async (req, res) => {
-  const { email, name, country, age } = req.body;
+  const { name, country, age } = req.body;
 
   const updatedUser: User = await prisma.user.update({
     where: {

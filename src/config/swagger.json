@@ -2,7 +2,7 @@
     "openapi":"3.0.0",
     "info":{
         "title":"API utilizando o ORM Prisma",
-        "description":"Essa API tem por objetivo, a manipulação",
+        "description":"Essa API tem por objetivo o estudo do ORM Prisma juntamente com a UI de documentação Swagger",
         "termsOfService":"http://localhost:3333/terms",
         "contact":{
             "email":"luciano.alcantara@ufv.br"
@@ -78,11 +78,6 @@
                         }
                     }
                 }
-            },
-            "delete":{
-                "summary":"Cadastro de usuário",
-                "description":"Essa rota será responsável por cadastrar um novo produto",
-                "tags":["Users"]
             }
         },
         "/users/{id}":{
@@ -134,51 +129,225 @@
                         }
                     }
                 }
+            },
+            "delete":{
+                "summary":"Cadastro de usuário",
+                "description":"Essa rota será responsável por excluir um usuário",
+                "tags":["Users"],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"Id do usuário",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                    "500":{
+                        "description":"Error"
+                    },
+                    "200":{
+                        "description":"OK"
+                    }
+                }
             }
         },
         "/posts":{
             "get":{
-                "summary":"Cadastro de usuário",
-                "description":"Essa rota será responsável por cadastrar um novo produto",
-                "tags":["Posts"]
+                "summary":"Recuperar posts",
+                "description":"Essa rota será responsável por recuperar todos os posts",
+                "tags":["Posts"],
+                "responses":{
+                    "500":{
+                        "description":"Error"
+                    },
+                    "200":{
+                        "description":"OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Posts"                              
+                                }
+                            }
+                        }
+                    }
+                }
             },
             "post":{
-                "summary":"Cadastro de usuário",
-                "description":"Essa rota será responsável por cadastrar um novo produto",
-                "tags":["Posts"]
+                "summary":"Cadastro de post",
+                "description":"Essa rota será responsável por cadastrar um novo post",
+                "tags":["Posts"],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Posts"
+                            },
+                            "examples":{
+                                "posts":{
+                                    "value":{
+                                        "title": "Novo Post",
+                                        "userId": 36
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "500":{
+                        "description":"Error"
+                    },
+                    "200":{
+                        "description":"OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Posts"                              
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/posts/{id}":{
             "put":{
-                "summary":"Cadastro de usuário",
-                "description":"Essa rota será responsável por cadastrar um novo produto",
-                "tags":["Posts"]
+                "summary":"Atualizar post",
+                "description":"Essa rota será responsável por atualizar um post pelo Id",
+                "tags":["Posts"],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"Id do post",
+                        "required":true
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Posts"
+                            },
+                            "examples":{
+                                "posts":{
+                                    "value":{
+                                        "title": "Novo Post 2"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "500":{
+                        "description":"Error"
+                    },
+                    "200":{
+                        "description":"OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Posts"                              
+                                }
+                            }
+                        }
+                    }
+                }
             },
             "delete":{
-                "summary":"Cadastro de usuário",
-                "description":"Essa rota será responsável por cadastrar um novo produto",
-                "tags":["Posts"]
+                "summary":"Excluir post",
+                "description":"Essa rota será responsável por excluir um post pelo Id",
+                "tags":["Posts"],
+                "responses":{
+                    "500":{
+                        "description":"Error"
+                    },
+                    "200":{
+                        "description":"OK"
+                    }
+                }
             }
         },
         "/posts/{id}/categories":{
             "get":{
-                "summary":"Cadastro de usuário",
-                "description":"Essa rota será responsável por cadastrar um novo produto",
-                "tags":["Posts"]
+                "summary":"Buscar categorias de um post",
+                "description":"Essa rota será responsável recuperar as categorias de um post especificado pelo Id",
+                "tags":["Posts"],
+                "responses":{
+                    "500":{
+                        "description":"Error"
+                    },
+                    "200":{
+                        "description":"OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Posts"                              
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/posts/published":{
             "get":{
-                "summary":"Cadastro de usuário",
-                "description":"Essa rota será responsável por cadastrar um novo produto",
-                "tags":["Posts"]
+                "summary":"Recuperar posts publicados",
+                "description":"Essa rota será responsável por recuperar todos os posts publicados",
+                "tags":["Posts"],
+                "responses":{
+                    "500":{
+                        "description":"Error"
+                    },
+                    "200":{
+                        "description":"OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Posts"                              
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/posts/publish/{id}":{
             "put":{
-                "summary":"Cadastro de usuário",
-                "description":"Essa rota será responsável por cadastrar um novo produto",
-                "tags":["Posts"]
+                "summary":"Publicar post",
+                "description":"Essa rota será responsável por atualizar um post para publicado",
+                "tags":["Posts"],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"Id do post",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                    "500":{
+                        "description":"Error"
+                    },
+                    "200":{
+                        "description":"OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Posts"                              
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/posts/user/{id}":{
@@ -213,6 +382,130 @@
                                     "type":"object",
                                     "$ref":"#/components/schemas/Posts"
                                     
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/profiles":{
+            "get":{
+                "summary":"Recuperar perfis",
+                "description":"Essa rota será responsável por recuperar todos os perfis",
+                "tags":["Profiles"],
+                "responses":{
+                    "500":{
+                        "description":"Error"
+                    },
+                    "200":{
+                        "description":"OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Profiles"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post":{
+                "summary":"Cadastro de perfil",
+                "description":"Essa rota será responsável por cadastrar um novo perfil",
+                "tags":["Profiles"],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Profile"
+                            },
+                            "examples":{
+                                "profile":{
+                                    "value":{
+                                        "bio": "Ciência da Computação - UFV",
+                                        "userId": 36
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "500":{
+                        "description":"Error"
+                    },
+                    "200":{
+                        "description":"OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Profiles"                              
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories":{
+            "get":{
+                "summary":"Recuperar categorias",
+                "description":"Essa rota será responsável por recuperar todas as categorias",
+                "tags":["Categories"],
+                "responses":{
+                    "500":{
+                        "description":"Error"
+                    },
+                    "200":{
+                        "description":"OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Categories"                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post":{
+                "summary":"Cadastro de categoria",
+                "description":"Essa rota será responsável por cadastrar uma nova categoria, sendo possível já conectar a um post através de seu Id",
+                "tags":["Categories"],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Profile"
+                            },
+                            "examples":{
+                                "categories":{
+                                    "value":{
+                                        "name":"study",
+                                        "posts":[{
+                                            "id":1
+                                        }]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "500":{
+                        "description":"Error"
+                    },
+                    "200":{
+                        "description":"OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Categories"                               
                                 }
                             }
                         }
